@@ -46,7 +46,9 @@ about:
     commands. You can use it to quickly draft a user interface or as a QA tool... or maybe 
     something more (let us know!). It is built upon the great joke2k/faker project!
   license: Apache-2.0
-  license_file: LICENSE
+  # TODO license file was ommitted from v0.0.2
+  # license_file: LICENSE.md
+  license_url: https://github.com/arnaudmiribel/streamlit-faker/blob/main/LICENSE.md
   license_family: Apache
 
 extra:
