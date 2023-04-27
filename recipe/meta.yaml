@@ -1,0 +1,56 @@
+{% set name = "streamlit-faker" %}
+{% set version = "0.0.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/streamlit_faker-{{ version }}.tar.gz
+  sha256: 3b6625fefb5c2bc759a3b2407c53c97b23cf69924ec31bd2fa7d5313b7691068
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+  # s390x is missing streamlit
+  skip: true  # [py<36 or s390x]
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - pip
+    - wheel
+  run:
+    - python
+    - streamlit
+    - streamlit-extras
+    - faker
+    - matplotlib-base
+
+test:
+  imports:
+    - streamlit_faker
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/arnaudmiribel/streamlit-faker
+  dev_url: https://github.com/arnaudmiribel/streamlit-faker
+  doc_url: https://github.com/arnaudmiribel/streamlit-faker/blob/main/README.md
+  summary: streamlit-faker is a library to very easily fake Streamlit commands
+  description: |
+    This repository introduces streamlit-faker, a library to very easily fake Streamlit 
+    commands. You can use it to quickly draft a user interface or as a QA tool... or maybe 
+    something more (let us know!). It is built upon the great joke2k/faker project!
+  license: Apache-2.0
+  # TODO license file was ommitted from v0.0.2
+  # license_file: LICENSE.md
+  license_url: https://github.com/arnaudmiribel/streamlit-faker/blob/main/LICENSE.md
+  license_family: Apache
+
+extra:
+  recipe-maintainers:
+    - ELundby45
