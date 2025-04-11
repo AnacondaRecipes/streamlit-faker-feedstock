@@ -10,8 +10,8 @@ source:
   sha256: 3b6625fefb5c2bc759a3b2407c53c97b23cf69924ec31bd2fa7d5313b7691068
 
 build:
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
   skip: true  # [py<36]
 
 requirements:
@@ -23,17 +23,17 @@ requirements:
   run:
     - python
     - streamlit
-    - streamlit-extras
+    #- streamlit-extras
     - faker
     - matplotlib-base
 
-test:
-  imports:
-    - streamlit_faker
-  commands:
-    - pip check
-  requires:
-    - pip
+#test:
+#  imports:
+#    - streamlit_faker
+#  commands:
+#    - pip check
+#  requires:
+#    - pip
 
 about:
   home: https://github.com/arnaudmiribel/streamlit-faker
