@@ -1,25 +1,26 @@
 {% set name = "streamlit-faker" %}
-{% set version = "0.0.2" %}
+{% set version = "0.0.3" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/streamlit_faker-{{ version }}.tar.gz
-  sha256: 3b6625fefb5c2bc759a3b2407c53c97b23cf69924ec31bd2fa7d5313b7691068
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: bff0f053aa514a99313a3699746183b41111891c82d6e9b41b1c69a7d719bf2f
 
 build:
-  number: 1
+  number: 0
+  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: true  # [py<36]
 
 requirements:
   host:
-    - python
-    - setuptools
     - pip
+    - python
     - wheel
+    - setuptools >=61.0
   run:
     - python
     - streamlit
