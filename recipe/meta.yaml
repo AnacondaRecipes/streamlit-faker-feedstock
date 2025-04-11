@@ -11,6 +11,7 @@ source:
 
 build:
   number: 1
+  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: true  # [py<36]
 
@@ -23,17 +24,17 @@ requirements:
   run:
     - python
     - streamlit
-    #- streamlit-extras
+    - streamlit-extras
     - faker
     - matplotlib-base
 
-#test:
-#  imports:
-#    - streamlit_faker
-#  commands:
-#    - pip check
-#  requires:
-#    - pip
+test:
+  imports:
+    - streamlit_faker
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/arnaudmiribel/streamlit-faker
