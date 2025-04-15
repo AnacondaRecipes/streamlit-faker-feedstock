@@ -13,16 +13,15 @@ build:
   number: 0
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [py<36]
 
 requirements:
   host:
     - pip
-    - python
+    - python 3.9
     - wheel
     - setuptools >=61.0
   run:
-    - python
+    - python >=3.9
     - streamlit
     - streamlit-extras
     - faker
@@ -41,7 +40,6 @@ about:
   license: Apache-2.0
   license_family: Apache
   license_file: LICENSE.md
-  license_url: https://github.com/arnaudmiribel/streamlit-faker/blob/main/LICENSE.md
   summary: streamlit-faker is a library to very easily fake Streamlit commands
   description: |
     This repository introduces streamlit-faker, a library to very easily fake Streamlit 
@@ -53,3 +51,5 @@ about:
 extra:
   recipe-maintainers:
     - ELundby45
+  skip-lints:
+    - avoid_noarch
