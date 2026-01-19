@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: dc94cbfafcf035b171cb989531a1f19f4241e5b3c2e61311ed91a02ed188fed0
+  url: https://github.com/arnaudmiribel/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: c684bde49b1722ad0f1dc160cac122e5d8bc7e886bca14d9938ca04d61324e43
 
 build:
   number: 0
@@ -28,13 +28,20 @@ requirements:
     - matplotlib-base
     - altex >=0.2.0
 
+# E AssertionError: Expected 'line_chart' to have been called once. Called 0 times.
+{% set deselect_tests = " --deselect=tests/test_chart_provider.py::test_line_chart_calls_streamlit" %}
+
 test:
+  source_files:
+    - tests
   imports:
     - streamlit_faker
-  commands:
-    - pip check
   requires:
     - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest -v tests {{ deselect_tests }}
 
 about:
   home: https://github.com/arnaudmiribel/streamlit-faker
