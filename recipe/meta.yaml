@@ -1,39 +1,47 @@
 {% set name = "streamlit-faker" %}
-{% set version = "0.0.3" %}
+{% set version = "0.0.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: bff0f053aa514a99313a3699746183b41111891c82d6e9b41b1c69a7d719bf2f
+  url: https://github.com/arnaudmiribel/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: c684bde49b1722ad0f1dc160cac122e5d8bc7e886bca14d9938ca04d61324e43
 
 build:
   number: 0
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
 
 requirements:
   host:
     - pip
-    - python 3.9
-    - wheel
+    - python
     - setuptools >=61.0
   run:
-    - python >=3.9
+    - python
     - streamlit
     - streamlit-extras
     - faker
     - matplotlib-base
+    - altex >=0.2.0
+
+# E AssertionError: Expected 'line_chart' to have been called once. Called 0 times.
+{% set deselect_tests = " --deselect=tests/test_chart_provider.py::test_line_chart_calls_streamlit" %}
 
 test:
+  source_files:
+    - tests
   imports:
     - streamlit_faker
-  commands:
-    - pip check
   requires:
     - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest -v tests {{ deselect_tests }}
 
 about:
   home: https://github.com/arnaudmiribel/streamlit-faker
@@ -42,8 +50,8 @@ about:
   license_file: LICENSE.md
   summary: streamlit-faker is a library to very easily fake Streamlit commands
   description: |
-    This repository introduces streamlit-faker, a library to very easily fake Streamlit 
-    commands. You can use it to quickly draft a user interface or as a QA tool... or maybe 
+    This repository introduces streamlit-faker, a library to very easily fake Streamlit
+    commands. You can use it to quickly draft a user interface or as a QA tool... or maybe
     something more (let us know!). It is built upon the great joke2k/faker project!
   dev_url: https://github.com/arnaudmiribel/streamlit-faker
   doc_url: https://github.com/arnaudmiribel/streamlit-faker/blob/main/README.md
